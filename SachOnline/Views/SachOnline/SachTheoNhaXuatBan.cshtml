@@ -1,0 +1,57 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<SachOnline.Models.SACH>
+@{
+    ViewBag.Title = "SachTheoNhaXuatBan";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<hr />
+<h2 class="text-center">SÁCH THEO NHÀ XUẤT BẢN</h2>
+<hr />
+@if (!Model.Any())
+{
+    <h4 style="padding: 25px 0px; color: #ff0000;">Không tìm thấy kết quả nào cho nhà xuất bản "@ViewBag.ten".</h4>
+    <div class="text-center">
+        <img style="width: 700px; height: 400px; display: block; margin: 0 auto;" src="~/Images/404.png" />
+    </div>
+}
+else
+{
+    <div class="row text-center">
+        @foreach (var SACH in Model)
+        {
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+                <div class="thumbnail">
+                    <img src="~/Images/@SACH.anhSP" alt="@SACH.TenSach" class="img- responsive img-rounded imgbook " style="width:235px; height:350px" />
+                    <div class="caption">
+                        <h6 style="min-height:50px;">
+                            <a href="@Url.Action("ChiTietSach","SachOnline", new { id = SACH.SachID})">@SACH.TenSach</a>
+                        </h6>
+                        <p>
+                            <a href="@Url.Action("AddToCart", "SachOnline", new { id = SACH.SachID })" class="btn btn-primary" role="button">
+                                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Cart
+                            </a>
+
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+}
+
+@*Tạo liên kết các trang*@
+Trang @(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount
+
+<div class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("SachTheoNhaXuatBan", new { id = ViewBag.Id, page }))
+</div>
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+    }
+</style>

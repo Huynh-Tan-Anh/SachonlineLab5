@@ -1,0 +1,37 @@
+﻿@using SachOnline.Models
+@model List<GioHang>
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2 style="text-align:center;">THÔNG TIN GIỎ HÀNG</h2>
+<table border="1">
+    <tr style="background-color:#9ca1a4; font-size:15px; font-weight:bold; text-align:center;">
+        <td>Mã Sách</td>
+        <td>Tên Sách</td>
+        <td>Ảnh Bìa</td>
+        <td>Số Lượng</td>
+        <td>Đơn Giá</td>
+        <td>Thành Tiền</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td align="center">@item.iSachID</td>
+            <td>@item.sTenSach</td>
+            <td><img src="~/Images/@item.sAnhSP" style="width:100px" /></td>
+            <td align="center">@item.iSoLuong</td>
+            <td align="center">@string.Format("{0:#,##0}", @item.dGiaTien)</td>
+            <td align="center">@string.Format("{0:#,##0}", @item.dTongTien)</td>
+        </tr>
+    }
+    <tr>
+        <td colspan="3" style="text-align:right; color:red; font-weight:bold; padding-right:5px;">
+            Tổng số lượng: @string.Format("{0:#,##0}", @ViewBag.TongSoLuong)
+        </td>
+        <td colspan="3" style="text-align:center; color:red; font-weight:bold;">
+            Tổng tiền: @string.Format("{0:#,##0}", @ViewBag.TongTien) VNĐ
+        </td>
+    </tr>
+</table>

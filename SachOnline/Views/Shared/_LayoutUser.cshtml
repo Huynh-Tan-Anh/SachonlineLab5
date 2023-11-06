@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <style type="text/css">
+        .imgbook {
+            transition: all 1s ease-in;
+            width: 250px;
+            height:340px;
+        }
+
+            .imgbook:hover {
+                transform: scale(0.9);
+                cursor: pointer;
+            }
+
+        .imgsachbannhieu {
+            width: 100px;
+        }
+        /* CSS để cùng hàng ngang input và button trong ô tìm kiếm */
+        .search-box {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-control {
+            flex: 1; /* Tự động mở rộng ô nhập dữ liệu */
+            margin-right: 3px; /* Khoảng cách giữa ô nhập dữ liệu và nút tìm kiếm */
+        }
+        .navbar {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ff6600;
+        }
+
+        .navbar .form-control {
+            background-color: #fff;
+            border: #777;
+            color: #000000;
+        }
+
+        .navbar .btn-outline-success:hover {
+            background-color: #fff;
+            color: #000;
+        }
+        .btn-outline-success:hover {
+            color: #ffffff;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .navbar-nav .nav-item.active .nav-link {
+            color: #ff6600;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #fff;
+        }
+
+
+        /* CSS for the footer pagination */
+        .pagination {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+        }
+
+            .pagination li {
+                display: inline;
+                list-style: none;
+                margin-right: 5px; /* Adjust the spacing between pagination items */
+            }
+
+                .pagination li a {
+                    text-decoration: none;
+                    padding: 5px 10px;
+                    background-color: #007BFF; /* Change to your desired background color */
+                    color: #fff; /* Text color */
+                    border: 1px solid #007BFF; /* Border color */
+                    border-radius: 4px; /* Rounded corners */
+                }
+
+                .pagination li.active a {
+                    background-color: #555; /* Active page background color */
+                    border-color: #555; /* Active page border color */
+                }
+
+                .pagination li.disabled a {
+                    pointer-events: none; /* Disable click on disabled pages */
+                    background-color: #ccc; /* Disabled page background color */
+                    border-color: #ccc; /* Disabled page border color */
+                    color: #777; /* Disabled page text color */
+                }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+            footer p, footer a {
+                color: #fff;
+            }
+
+            footer ul.list-inline li.list-inline-item a {
+                color: #fff;
+                margin: 0 10px;
+                text-decoration: none;
+            }
+
+                footer ul.list-inline li.list-inline-item a:hover {
+                    color: #ff6600;
+                }
+
+
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("BOOKSTORE", "Index", "SachOnline", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("Trang chủ", "Index", "SachOnline", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Giới thiệu", "About", "SachOnline", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Liên hệ", "Contact", "SachOnline", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <div class="search-box">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Tìm kiếm" aria-label="Tìm kiếm">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+                    </div>
+                </form>
+
+                <ul class="navbar-nav">
+                    <li>@Html.ActionLink("Đăng nhập", "DangNhap", "SachOnline", new { area = "" }, new { @class = "nav-link" })</li>
+
+                    <!-- Write your comments here -->
+                    <li>@Html.ActionLink("Đăng ký", "DangKy", "SachOnline", null, new { @class = "nav-link" })</li>
+                    <li>
+                        <a href="@Url.Action("GioHang","GioHang")"
+                           style="color:white; font-weight:bold; text-decoration:none;">
+                            <img src="~/Images/GioHang.jpg" style="width:35px; height:35px;" />
+                            Giỏ Hàng (@ViewBag.TongSoLuong)
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                @Html.Action("ChuDePartial", "SachOnline")
+                @Html.Action("NhaXuatBanPartial", "SachOnline")
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>&copy; 2023 Your Website Name</p>
+                    <p>Contact: <a href="mailto:contact@example.com">contact@example.com</a></p>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                        <li class="list-inline-item"><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
